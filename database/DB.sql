@@ -1,0 +1,272 @@
+CREATE TABLE `admins` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    admin_id VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password TEXT NOT NULL,
+    phone VARCHAR(100) NOT NULL,
+);
+
+CREATE TABLE `users` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    user_id VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password TEXT NOT NULL,
+    phone VARCHAR(100) NOT NULL,
+);
+
+CREATE TABLE `product_categories` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    category_id VARCHAR(100) NOT NULL,
+    name TEXT NOT NULL,
+    sub_category TEXT,
+    description TEXT,
+    remarks TEXT,
+
+    created_by INT,
+    creation_date DATE,
+    updated_by INT,
+    updation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (created_by) REFERENCES admins(ID) ON DELETE SET NULL,
+    FOREIGN KEY (updated_by) REFERENCES admins(ID) ON DELETE SET NULL,
+    FOREIGN KEY (deleted_by) REFERENCES admins(ID) ON DELETE SET NULL,
+);
+
+CREATE TABLE `products` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    product_id VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    size VARCHAR(100),
+    symbol VARCHAR(10),
+    category INT,
+    description TEXT NOT NULL,
+    remarks TEXT NOT NULL,
+
+    created_by INT,
+    creation_date DATE,
+    updated_by INT,
+    updation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (category) REFERENCES product_categories(ID) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES admins(ID) ON DELETE SET NULL,
+    FOREIGN KEY (updated_by) REFERENCES admins(ID) ON DELETE SET NULL,
+    FOREIGN KEY (deleted_by) REFERENCES admins(ID) ON DELETE SET NULL,
+);
+
+
+CREATE TABLE `product_images` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT,
+    name VARCHAR(100) NOT NULL,
+    extension VARCHAR(100) NOT NULL,
+    file_location VARCHAR(10),
+
+    created_by INT,
+    creation_date DATE,
+    updated_by INT,
+    updation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (product_id) REFERENCES products(ID) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES admins(ID) ON DELETE SET NULL,
+    FOREIGN KEY (updated_by) REFERENCES admins(ID) ON DELETE SET NULL,
+    FOREIGN KEY (deleted_by) REFERENCES admins(ID) ON DELETE SET NULL,
+);
+
+CREATE TABLE `product_sizes` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT,
+    name VARCHAR(100) NOT NULL,
+    symbol VARCHAR(10),
+    price INT NOT NULL,
+    discountable INT DEFAULT 0,
+    discount INT DEFAULT 0,
+
+    created_by INT,
+    creation_date DATE,
+    updated_by INT,
+    updation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (product_id) REFERENCES products(ID) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES admins(ID) ON DELETE SET NULL,
+    FOREIGN KEY (updated_by) REFERENCES admins(ID) ON DELETE SET NULL,
+    FOREIGN KEY (deleted_by) REFERENCES admins(ID) ON DELETE SET NULL,
+);
+
+CREATE TABLE `product_reviews` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT,
+    user_name VARCHAR(100) NOT NULL,
+    user_email VARCHAR(100) NOT NULL,
+    user_review TEXT NOT NULL,
+    user_ratings INT,
+
+    created_by INT,
+    creation_date DATE,
+    updated_by INT,
+    updation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (product_id) REFERENCES products(ID) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (updated_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (deleted_by) REFERENCES users(ID) ON DELETE SET NULL,
+);
+
+CREATE TABLE `product_comments` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT,
+    user_id INT,
+    comment TEXT NOT NULL,
+
+    created_by INT,
+    creation_date DATE,
+    updated_by INT,
+    updation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (user_id) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (product_id) REFERENCES products(ID) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (updated_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (deleted_by) REFERENCES users(ID) ON DELETE SET NULL,
+);
+
+CREATE TABLE `orders` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    order_id VARCHAR(100),
+    product_id INT,
+    product_size_id INT,
+    user_id INT,
+    order_amount TEXT NOT NULL,
+    price INT,
+    total_price INT,
+    is_active INT DEFAULT 1,
+    is_canceled INT DEFAULT 0,
+    is_pending INT DEFAULT 0,
+    is_shiped INT DEFAULT 0,
+    is_delivered INT DEFAULT 0,
+
+    created_by INT,
+    creation_date DATE,
+    updated_by INT,
+    updation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (user_id) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (product_id) REFERENCES products(ID) ON DELETE SET NULL,
+    FOREIGN KEY (product_size_id) REFERENCES product_sizes(ID) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (updated_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (deleted_by) REFERENCES users(ID) ON DELETE SET NULL,
+);
+
+CREATE TABLE `invoices` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    invoice_id VARCHAR(100),
+    user_id INT,
+    total_price INT,
+    file_location TEXT,
+
+    creation_date DATE,
+    updated_by INT,
+    updation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (user_id) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (updated_by) REFERENCES admins(ID) ON DELETE SET NULL,
+    FOREIGN KEY (deleted_by) REFERENCES admins(ID) ON DELETE SET NULL,
+);
+
+CREATE TABLE `cart_items` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT,
+    product_size_id INT,
+    user_id INT,
+    order_amount TEXT NOT NULL,
+
+    created_by INT,
+    creation_date DATE,
+    updated_by INT,
+    updation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (user_id) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (product_id) REFERENCES products(ID) ON DELETE SET NULL,
+    FOREIGN KEY (product_size_id) REFERENCES product_sizes(ID) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (updated_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (deleted_by) REFERENCES users(ID) ON DELETE SET NULL,
+);
+
+CREATE TABLE `favourites` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT,
+    product_size_id INT,
+    user_id INT,
+
+    created_by INT,
+    creation_date DATE,
+    updated_by INT,
+    updation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (user_id) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (product_id) REFERENCES products(ID) ON DELETE SET NULL,
+    FOREIGN KEY (product_size_id) REFERENCES product_sizes(ID) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (updated_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (deleted_by) REFERENCES users(ID) ON DELETE SET NULL,
+);
+CREATE TABLE `user_settings` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    address_1 TEXT NOT NULL,
+    address_2 TEXT NOT NULL,
+    default_address TEXT NOT NULL,
+    payment_method TEXT,
+    payment_method_bank TEXT,
+    payment_account_number TEXT,
+    payment_account_title TEXT,
+
+    created_by INT,
+    creation_date DATE,
+    updated_by INT,
+    updation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (user_id) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (updated_by) REFERENCES users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (deleted_by) REFERENCES users(ID) ON DELETE SET NULL,
+);
+
+CREATE TABLE `contact_us` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    subject TEXT NOT NULL,
+    message TEXT NOT NULL,
+
+    creation_date DATE,
+    is_deleted INT DEFAULT 0,
+    deleted_by INT,
+    deletion_date DATE,
+    FOREIGN KEY (deleted_by) REFERENCES admins(ID) ON DELETE SET NULL,
+);

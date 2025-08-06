@@ -1,0 +1,194 @@
+@import 'tailwindcss';
+@source "../views";
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* @theme {
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+} */
+
+*{
+    font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 400;
+}
+label {
+    @apply text-slate-800
+}
+.input-control{
+    @apply px-3 py-1 transition-all duration-100 w-full focus:ring-2 focus:ring-slate-300 focus:outline-0 rounded my-2 border border-gray-400
+}
+.responsive-form{
+    @apply w-[90%] md:w-[50%] lg:w-[35%] shadow-lg border border-gray-300 shadow-gray-200 p-10
+}
+.primary-btn{
+    @apply cursor-pointer py-2 px-5  border shadow bg-[#2a324a] text-white transition-all duration-300 hover:bg-white hover:text-[#2a324a]
+}
+.secondary-btn{
+    @apply cursor-pointer py-2 px-5  border shadow bg-[#f14e5b] text-white transition-all duration-300 hover:bg-white hover:text-[#f14e5b]
+}
+.bg-primary{
+    @apply bg-[#2a324a]
+}
+.form-primary-btn{
+    @apply cursor-pointer py-2 px-5  border border-[#2a324a] shadow bg-[#2a324a] text-white transition-all duration-300 hover:bg-white hover:text-[#2a324a] rounded-r-md
+}
+.success-btn{
+    @apply cursor-pointer py-2 px-5  border border-teal-500 shadow bg-teal-500 text-white transition-all duration-300 hover:bg-white hover:text-teal-500
+}
+.bg-success{
+    @apply bg-teal-500
+}
+.warning-btn{
+    @apply cursor-pointer py-2 px-5  border border-yellow-500 shadow bg-yellow-500 text-white transition-all duration-300 hover:bg-white hover:text-yellow-500
+}
+.bg-warning{
+    @apply bg-yellow-500
+}
+
+.bg-secondary{
+    @apply bg-[#f14e5b]
+}
+.info-btn{
+    @apply cursor-pointer py-2 px-5  border border-cyan-500 shadow  bg-cyan-500 text-white transition-all duration-300 hover:bg-white hover:text-cyan-500
+}
+.bg-info{
+    @apply bg-cyan-500
+}
+.form-secondary-btn{
+    @apply cursor-pointer py-2 px-5  border border-[#f14e5b] shadow bg-[#f14e5b] text-white transition-all duration-300 hover:bg-white hover:text-[#f14e5b] rounded-l-md
+}
+.container{
+    @apply px-10 py-5
+}
+
+.y-container{
+ @apply py-10
+}
+
+.x-container{
+ @apply px-10
+}
+
+.admin-container{
+    @apply p-10 md:ml-56 sm:ml-0
+}
+*{
+    @apply transition-all duration-300 scroll-smooth
+}
+.text-primary{
+    @apply text-[#2a324a]
+}
+.text-primary-hover{
+    @apply hover:text-[#2a324a]
+}
+.bg-primary{
+    @apply bg-[#2a324a]
+}
+.bg-primary-hover{
+    @apply hover:bg-[#2a324a]
+}
+.text-redish{
+    @apply text-[#f14e5b]
+}
+.text-redish-hover{
+ @apply hover:text-[#f14e5b]
+}
+.bg-redish{
+    @apply bg-[#f14e5b]
+}
+.bg-redish-hover{
+ @apply hover:bg-[#f14e5b]
+}
+.bolder{
+    font-weight: 700;
+}
+.boldest{
+    font-weight: 900;
+}
+
+.grouped-btns{
+    @apply flex
+}
+.grouped-btns:first-child{
+    @apply rounded  rounded-l-md
+}
+
+.grouped-btns:last-child{
+    @apply rounded rounded-r-md
+}
+.input-search{
+    @apply  placeholder:text-gray-600 border border-slate-300 shadow-md px-5 py-2 lg:text-lg active:outline-0 focus:outline-0 active:ring-1 active:ring-gray-100 focus:ring-1 focus:ring-gray-100 w-full
+}
+.select-filter{
+    @apply  placeholder:text-gray-600 border border-slate-300 shadow-md px-5 py-2 lg:text-lg active:outline-0 focus:outline-0 active:ring-1 active:ring-gray-100 focus:ring-1 focus:ring-gray-100 w-full
+}
+.card{
+    @apply hover:scale-[102%] transition-all duration-300 m-2 p-5 shadow-lg border border-slate-300 rounded-md shadow-slate-200
+}
+
+.spacer{
+    @apply mt-20 md:mt-0
+}
+
+
+.modal{
+    @apply absolute w-[100vw] h-[100vh] bg-[#0007] z-20 top-0 left-0 justify-center items-center
+}
+
+.modal-container{
+    @apply w-[80%] md:w-[60%] lg:w-[40%] bg-white shadow-lg shadow-slate-300 border border-slate-400 rounded-md
+}
+
+.edit-modal-container{
+    @apply w-[70%] bg-white shadow-lg shadow-slate-300 border border-slate-400 rounded-md
+}
+
+.product_image_preview{
+   @apply col-span-4 md:col-span-2 lg:col-span-1 w-fit shadow-lg shadow-slate-300 m-3 h-fit border border-slate-300 rounded
+}
+
+.th-settings{
+    @apply bg-slate-500 font-bold text-white border border-slate-400 p-3
+}
+.cart-th{
+    @apply text-slate-800 border border-slate-300 m-2 p-3 font-bold
+}
+.td-settings{
+    @apply p-3 border border-slate-400 text-[#2a324a]
+}
+.hiddenScroller::-webkit-scrollbar{
+    display: none;
+}
+.selected-label{
+    @apply  bg-[#f14e5b] text-white
+}
+.unselected-label{
+    @apply  text-slate-800 bg-white
+}
+.selectSizeLabel{
+    @apply p-1 px-2 m-1 border-slate-500 border
+}
+.product-card{
+    @apply hover:scale-[102%] transition-all duration-300 m-5 shadow-lg border border-slate-300 rounded-md shadow-slate-200
+}
+
+.drop-down-menu{
+    @apply hover:text-blue-600
+}
+
+.drop-down-menu-item{
+    @apply mt-10 absolute z-10 hidden px-5 min-w-60 border border-gray-300 bg-white shadow-2xl peer-hover:block hover:block peer-hover:mt-0 hover:mt-0 peer-focus:block peer-focus:mt-0
+}
+.RatingListItem{
+    @apply cursor-pointer border p-2 border-slate-300 block
+}
+
+.checked_rating{
+    @apply border border-amber-400 bg-amber-200 text-slate-700 scale-105  shadow-lg shadow-slate-300
+}
+.rating_star{
+    font-size: 10px;
+    @apply text-amber-400
+}
